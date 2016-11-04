@@ -31,7 +31,7 @@ var/
 *.manifest
 *.spec
 
-# Installer logs
+# Instaler logs
 pip-log.txt
 pip-delete-this-directory.txt
 
