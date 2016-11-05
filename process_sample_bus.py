@@ -51,3 +51,6 @@ def load_data():
     model(GaussianNB(), 'nb')
     model(LogisticRegression(), 'logis')
     model(GradientBoostingClassifier(), 'bo')
+
+
+# my first comment
