@@ -1,3 +1,5 @@
+# process the sample business data
+
 import json
 import numpy as np
 from sklearn.linear_model import LogisticRegression
