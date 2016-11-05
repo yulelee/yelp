@@ -9,3 +9,9 @@ Some links that might be useful...
 [Tutorial on Collaborative Filtering and Matrix Factorization](https://lazyprogrammer.me/tutorial-on-collaborative-filtering-and-matrix-factorization-in-python/)
 
 [Intro to Recommender Systems: Collaborative Filtering](http://blog.ethanrosenthal.com/2015/11/02/intro-to-collaborative-filtering/)
+
+[Implementing your own recommender systems in Python](http://online.cambridgecoding.com/notebooks/eWReNYcAfB/implementing-your-own-recommender-systems-in-python-2)
+
+[->Stochastic gradient descent](http://online.cambridgecoding.com/notebooks/mhaller/implementing-your-own-recommender-systems-in-python-using-stochastic-gradient-descent-4#implementing-your-own-recommender-systems-in-python-using-stochastic-gradient-descent)
+
+[->Alternating Least Squares](http://online.cambridgecoding.com/notebooks/mhaller/predicting-user-preferences-in-python-using-alternating-least-squares)
