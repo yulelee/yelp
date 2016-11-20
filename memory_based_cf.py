@@ -4,6 +4,7 @@ import pandas as pd
 from sklearn.metrics.pairwise import pairwise_distances
 from sklearn.metrics import mean_squared_error
 import load_matrix
+import utils
 
 train_data_matrix = load_matrix.train_data_matrix
 test_data_matrix = load_matrix.test_data_matrix
@@ -28,10 +29,5 @@ print 'making predictions'
 item_prediction = predict(train_data_matrix, item_similarity, type='item')
 user_prediction = predict(train_data_matrix, user_similarity, type='user')
 
-def rmse(prediction, ground_truth):
-    prediction = prediction[ground_truth.nonzero()].flatten() 
-    ground_truth = ground_truth[ground_truth.nonzero()].flatten()
-    return sqrt(mean_squared_error(prediction, ground_truth))
-
-print 'User-based CF RMSE: ' + str(rmse(user_prediction, test_data_matrix))
-print 'Item-based CF RMSE: ' + str(rmse(item_prediction, test_data_matrix))
+print 'User-based CF RMSE: ' + str(utils.rmse(user_prediction, test_data_matrix))
+print 'Item-based CF RMSE: ' + str(utils.rmse(item_prediction, test_data_matrix))

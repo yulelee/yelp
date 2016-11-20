@@ -6,16 +6,10 @@ import numpy as np
 from math import sqrt
 from sklearn.metrics import mean_squared_error
 import load_matrix
+import utils
 
 train_data_matrix = load_matrix.train_data_matrix
 test_data_matrix = load_matrix.test_data_matrix
-
-def rmse(prediction, ground_truth):
-    prediction = prediction[ground_truth.nonzero()].flatten() 
-    ground_truth = ground_truth[ground_truth.nonzero()].flatten()
-    return sqrt(mean_squared_error(prediction, ground_truth))
-
-
 all_predictions = np.zeros((load_matrix.n_users, load_matrix.n_items))
 
 for user_idx in range(load_matrix.n_users):
@@ -24,4 +18,4 @@ for user_idx in range(load_matrix.n_users):
 	prediction = nonzero_values.mean()
 	all_predictions[user_idx, nonzero_index] = prediction
 
-print 'rmse:', rmse(all_predictions, load_matrix.test_data_matrix)
+print 'rmse:', utils.rmse(all_predictions, load_matrix.test_data_matrix)

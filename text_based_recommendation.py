@@ -58,13 +58,7 @@ for user_idx in range(load_matrix.n_users):
 
 		all_predictions[user_idx, testing_nonzero_index] = predictions.reshape(1, len(testing_sorted_index))
 
-# computing the error
-def rmse(prediction, ground_truth):
-    prediction = prediction[ground_truth.nonzero()].flatten() 
-    ground_truth = ground_truth[ground_truth.nonzero()].flatten()
-    return math.sqrt(mean_squared_error(prediction, ground_truth))
-
-print 'rmse:', rmse(all_predictions, load_matrix.test_data_matrix)
+print 'rmse:', utils.rmse(all_predictions, load_matrix.test_data_matrix)
 
 
 
