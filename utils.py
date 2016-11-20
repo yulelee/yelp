@@ -19,3 +19,6 @@ def rmse(prediction, ground_truth):
     prediction = prediction[ground_truth.nonzero()].flatten() 
     ground_truth = ground_truth[ground_truth.nonzero()].flatten()
     return math.sqrt(mean_squared_error(prediction, ground_truth))
+
+def list_rmse(prediction, ground_truth):
+	return math.sqrt(mean_squared_error(prediction, ground_truth))
