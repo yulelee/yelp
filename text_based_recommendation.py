@@ -11,9 +11,10 @@ import numpy as np
 
 file_city_name = utils.file_city_name
 
-user_X = np.load('data/' + file_city_name + '_user_X.np')
-restaurants_X = np.load('data/' + file_city_name + '_restaurants_X.np')
-cosine_similarities = np.load('data/' + file_city_name + '_cosine_similarities.np')
+# '_cosine_similarities.np' or '_user_preference_cos.np'
+sorting_method = '_user_preference_cos.np'
+
+cosine_similarities = np.load('data/' + file_city_name + sorting_method)
 
 all_predictions = np.zeros((load_matrix.n_users, load_matrix.n_items))
 
