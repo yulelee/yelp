@@ -4,7 +4,6 @@ import load_matrix
 from sklearn.feature_extraction.text import TfidfVectorizer
 from sklearn.metrics.pairwise import linear_kernel
 from sklearn.kernel_ridge import KernelRidge
-from sklearn.metrics import mean_squared_error
 import matplotlib.pyplot as plt
 import math
 import numpy as np
