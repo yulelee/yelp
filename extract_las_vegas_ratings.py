@@ -1,7 +1,8 @@
 import json
+import utils
 
-file_city_name = 'las_vegas'
-city_name = 'Las Vegas'
+file_city_name = utils.file_city_name
+city_name = utils.city_name
 
 businesses = set()
 
@@ -38,7 +39,7 @@ with open('data/yelp_academic_dataset_review.json') as data_file:
 all_output.close()
 
 # filter the users based on the number of reviews he/she has written
-NUM_THRESH = 20
+NUM_THRESH = util.NUM_REVIEWS_THRESH
 eligible_users = [user_id for (user_id, count) in user_count.items() if count >= NUM_THRESH]
 eligible_restaurants = [rest_id for (rest_id, count) in restaurant_count.items() if count >= NUM_THRESH]
 print len(eligible_users), 'users are eligible, out of a total of', len(user_count)
@@ -53,7 +54,7 @@ with open('data/' + file_city_name + '_reviews.json') as data_file:
         review = json.loads(line)
         if review['user_id'] in eligible_users and review['business_id'] in eligible_restaurants:
             filter_output.write(line)
-            eligible_review_count +=  1
+            eligible_review_count += 1
 
 print eligible_review_count, 'reviews eligible, out of a total of', total_count
 
