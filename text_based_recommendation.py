@@ -11,7 +11,7 @@ import numpy as np
 file_city_name = utils.file_city_name
 
 # '_cosine_similarities.np' or '_user_preference_cos.np'
-sorting_method = '_cosine_similarities.np'
+sorting_method = '_user_preference_cos.np'
 
 cosine_similarities = np.load('data/' + file_city_name + sorting_method)
 
@@ -66,7 +66,12 @@ for user_idx in range(load_matrix.n_users):
 print 'testing rmse:', utils.rmse(test_predictions, load_matrix.test_data_matrix)
 print 'training rmse:', utils.rmse(train_predictions, load_matrix.train_data_matrix)
 
+# save the predictions
+with open('data/' + file_city_name + sorting_method + '_train_predictions.np', 'w') as file:
+	np.save(file, train_predictions)
 
+with open('data/' + file_city_name + sorting_method + '_test_predictions.np', 'w') as file:
+	np.save(file, test_predictions)
 
 
 	
