@@ -36,6 +36,9 @@ for line in test_data.itertuples():
     test_data_matrix[user_id_map[line[1]], item_id_map[line[2]]] = line[3]
     total_count += 1
 
-print total_count / (n_users * n_items * 1.0)
+print 'total users:', n_users
+print 'total items:', n_items
+print 'total reviews:', total_count
+print 'sparsity:', total_count / (n_users * n_items * 1.0)
 
 
