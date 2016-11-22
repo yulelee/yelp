@@ -13,4 +13,5 @@ test_data_matrix = load_matrix.test_data_matrix
 u, s, vt = svds(train_data_matrix, k = 20)
 s_diag_matrix = np.diag(s)
 X_pred = np.dot(np.dot(u, s_diag_matrix), vt)
-print 'User-based CF MSE: ' + str(utils.rmse(X_pred, test_data_matrix))
+print 'Training User-based CF RMSE: ' + str(utils.rmse(X_pred, test_data_matrix))
+print 'Testing User-based CF RMSE: ' + str(utils.rmse(X_pred, train_data_matrix))
