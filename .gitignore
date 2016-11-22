@@ -104,6 +104,7 @@ preprocess/JSON
 
 ### Other supporting files ###
 *.xlsx
+*.png
 
 ### macOS ###
 *.DS_Store
