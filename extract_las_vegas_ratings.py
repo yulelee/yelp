@@ -39,7 +39,7 @@ with open('data/yelp_academic_dataset_review.json') as data_file:
 all_output.close()
 
 # filter the users based on the number of reviews he/she has written
-NUM_THRESH = util.NUM_REVIEWS_THRESH
+NUM_THRESH = utils.NUM_REVIEWS_THRESH
 eligible_users = [user_id for (user_id, count) in user_count.items() if count >= NUM_THRESH]
 eligible_restaurants = [rest_id for (rest_id, count) in restaurant_count.items() if count >= NUM_THRESH]
 print len(eligible_users), 'users are eligible, out of a total of', len(user_count)
