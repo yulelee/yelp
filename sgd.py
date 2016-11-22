@@ -58,10 +58,10 @@ for epoch in xrange(n_epochs):
 
 # Check performance by plotting train and test errors
 
-plt.plot(range(n_epochs), train_errors, marker='o', label='Training Data');
-plt.plot(range(n_epochs), test_errors, marker='v', label='Test Data');
-plt.title('SGD-WR Learning Curve')
-plt.xlabel('Number of Epochs');
+plt.plot(range(n_epochs), train_errors, label='Training');
+plt.plot(range(n_epochs), test_errors, label='Testing');
+plt.title('Collaborative Filtering by Gradient Descent Learning Curve')
+plt.xlabel('Iterations');
 plt.ylabel('RMSE');
 plt.legend()
 plt.grid()
