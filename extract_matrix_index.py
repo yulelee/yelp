@@ -13,7 +13,6 @@ with open('data/' + file_city_name + '_reviews_filtered.json') as data_file:
         if review['user_id'] not in user_index_map.keys(): 
             user_index_map[review['user_id']] = unique_user_counter
             unique_user_counter += 1
-            print user_index_map[review['user_id']]
         if review['business_id'] not in rest_index_map.keys():
             rest_index_map[review['business_id']] = unique_rest_counter
             unique_rest_counter += 1
