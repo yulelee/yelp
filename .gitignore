@@ -102,6 +102,9 @@ preprocess/JSON
 ### Vim ###
 *.swp
 
+### Other supporting files ###
+*.xlsx
+
 ### macOS ###
 *.DS_Store
 .AppleDouble
@@ -124,4 +127,5 @@ Icon
 .AppleDesktop
 Network Trash Folder
 Temporary Items
-.apdiskropeproject
+.apdisk
+ropeproject
