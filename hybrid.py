@@ -5,6 +5,11 @@ import load_matrix
 import math
 import numpy as np
 from sklearn import linear_model
+from sklearn import kernel_ridge
+from sklearn import svm
+
+from sklearn.preprocessing import PolynomialFeatures
+import matplotlib.pyplot as plt
 
 file_city_name = utils.file_city_name
 
@@ -47,12 +52,12 @@ svd_all = np.load('data/' + file_city_name + 'svd' + '_all_predictions.np')
 # so we don't need to split them here
 
 sorting_method = '_user_preference_cos.np'
-tbr_preference_train = np.load('data/' + file_city_name + sorting_method + '_train_predictions.np')
-tbr_preference_test = np.load('data/' + file_city_name + sorting_method + '_test_predictions.np')
+tbr_preference_all = np.load('data/' + file_city_name + sorting_method + '_all_predictions.np')
+# tbr_preference_test = np.load('data/' + file_city_name + sorting_method + '_test_predictions.np')
 
 sorting_method = '_cosine_similarities.np'
-tbr_similarity_train = np.load('data/' + file_city_name + sorting_method + '_train_predictions.np')
-tbr_similarity_test = np.load('data/' + file_city_name + sorting_method + '_test_predictions.np')
+tbr_similarity_all = np.load('data/' + file_city_name + sorting_method + '_all_predictions.np')
+# tbr_similarity_test = np.load('data/' + file_city_name + sorting_method + '_test_predictions.np')
 
 
 print 'Constructing the features and labels...'
@@ -61,28 +66,64 @@ print 'Constructing the features and labels...'
 hybrid_train_feature = np.column_stack((memory_based_cf_user_all[train_data_matrix.nonzero()], \
 										memory_based_cf_item_all[train_data_matrix.nonzero()], \
 										sgd_all[train_data_matrix.nonzero()], \
-										svd_all[train_data_matrix.nonzero()], \
-										tbr_preference_train[train_data_matrix.nonzero()], 
-										tbr_similarity_train[train_data_matrix.nonzero()]))
+										# svd_all[train_data_matrix.nonzero()], \
+										tbr_preference_all[train_data_matrix.nonzero()], 
+										tbr_similarity_all[train_data_matrix.nonzero()]))
 
-bybrid_train_label = train_data_matrix[train_data_matrix.nonzero()]
+hybrid_train_label = train_data_matrix[train_data_matrix.nonzero()]
+
+
+plt.plot(range(len(hybrid_train_label)), np.sort(hybrid_train_label), label='Labels');
+plt.plot(range(len(hybrid_train_label)), np.sort(hybrid_train_feature[:,0]), label='Feature1');
+plt.plot(range(len(hybrid_train_label)), np.sort(hybrid_train_feature[:,1]), label='Feature2');
+plt.plot(range(len(hybrid_train_label)), np.sort(hybrid_train_feature[:,2]), label='Feature3');
+plt.plot(range(len(hybrid_train_label)), np.sort(hybrid_train_feature[:,3]), label='Feature4');
+plt.plot(range(len(hybrid_train_label)), np.sort(hybrid_train_feature[:,4]), label='Feature5');
+
 
 hybrid_test_feature = np.column_stack((memory_based_cf_user_all[test_data_matrix.nonzero()], \
 										memory_based_cf_item_all[test_data_matrix.nonzero()], \
 										sgd_all[test_data_matrix.nonzero()], \
-										svd_all[test_data_matrix.nonzero()], \
-										tbr_preference_test[test_data_matrix.nonzero()], 
-										tbr_similarity_test[test_data_matrix.nonzero()]))
+										# svd_all[test_data_matrix.nonzero()], \
+										tbr_preference_all[test_data_matrix.nonzero()], 
+										tbr_similarity_all[test_data_matrix.nonzero()]))
 
-bybrid_test_label = test_data_matrix[test_data_matrix.nonzero()]
+hybrid_test_label = test_data_matrix[test_data_matrix.nonzero()]
 
 print 'Perform the linear regression...'
 
-regr = linear_model.LinearRegression()
-regr.fit(hybrid_train_feature, bybrid_train_label)
+print 'Linear Regression'
+
+print hybrid_train_feature.shape
+poly = PolynomialFeatures(3)
+hybrid_train_feature = poly.fit_transform(hybrid_train_feature)
+hybrid_test_feature = poly.fit_transform(hybrid_test_feature)
+
+print hybrid_train_feature.shape
+
+# regr = linear_model.LinearRegression()
+regr = linear_model.Ridge()
+regr.fit(hybrid_train_feature, hybrid_train_label)
 
 train_prediction = regr.predict(hybrid_train_feature)
 test_prediction = regr.predict(hybrid_test_feature)
 
-print 'training rmse:', utils.list_rmse(train_prediction, bybrid_train_label)
-print 'testing rmse:', utils.list_rmse(test_prediction, bybrid_test_label)
+plt.plot(range(len(hybrid_train_label)), np.sort(train_prediction), label='predictions');
+
+plt.legend()
+plt.grid()
+plt.show()
+
+print 'training rmse:', utils.list_rmse(train_prediction, hybrid_train_label)
+print 'testing rmse:', utils.list_rmse(test_prediction, hybrid_test_label)
+
+# print 'SVM'
+
+# regr = kernel_ridge.KernelRidge(kernel = 'rbf')
+# regr.fit(hybrid_train_feature, bybrid_train_label)
+
+# train_prediction = regr.predict(hybrid_train_feature)
+# test_prediction = regr.predict(hybrid_test_feature)
+
+# print 'training rmse:', utils.list_rmse(train_prediction, bybrid_train_label)
+# print 'testing rmse:', utils.list_rmse(test_prediction, bybrid_test_label)
