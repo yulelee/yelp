@@ -5,6 +5,9 @@ from math import sqrt
 from sklearn.metrics import mean_squared_error
 import load_matrix
 import matplotlib.pyplot as plt
+import utils
+
+file_city_name = utils.file_city_name
 
 R = load_matrix.train_data_matrix
 T = load_matrix.test_data_matrix
@@ -46,23 +49,28 @@ for epoch in xrange(n_epochs):
         e = R[u, i] - prediction(P[:,u],Q[:,i])  # Calculate error for gradient
         P[:,u] += gamma * ( e * Q[:,i] - lmbda * P[:,u]) # Update latent user feature matrix
         Q[:,i] += gamma * ( e * P[:,u] - lmbda * Q[:,i])  # Update latent movie feature matrix
-    train_rmse = rmse(I,R,Q,P) # Calculate root mean squared error from train dataset
-    test_rmse = rmse(I2,T,Q,P) # Calculate root mean squared error from test dataset
-    train_errors.append(train_rmse)
-    test_errors.append(test_rmse)
+    # train_rmse = rmse(I,R,Q,P) # Calculate root mean squared error from train dataset
+    # test_rmse = rmse(I2,T,Q,P) # Calculate root mean squared error from test dataset
+    # train_errors.append(train_rmse)
+    # test_errors.append(test_rmse)
     print epoch
-    print train_rmse
-    print test_rmse
+    # print train_rmse
+    # print test_rmse
 
+final_result = prediction(P, Q)
+print 'test_error:', utils.rmse(final_result, T)
+
+with open('data/' + file_city_name + 'sgd' + '_all_predictions.np', 'w') as file:
+    np.save(file, final_result)
 
 
 # Check performance by plotting train and test errors
 
-plt.plot(range(n_epochs), train_errors, label='Training');
-plt.plot(range(n_epochs), test_errors, label='Testing');
-plt.title('Collaborative Filtering by Gradient Descent Learning Curve')
-plt.xlabel('Iterations');
-plt.ylabel('RMSE');
-plt.legend()
-plt.grid()
-plt.show()
+# plt.plot(range(n_epochs), train_errors, label='Training');
+# plt.plot(range(n_epochs), test_errors, label='Testing');
+# plt.title('Collaborative Filtering by Gradient Descent Learning Curve')
+# plt.xlabel('Iterations');
+# plt.ylabel('RMSE');
+# plt.legend()
+# plt.grid()
+# plt.show()
