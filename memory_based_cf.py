@@ -51,6 +51,9 @@ item_prediction = predict(train_data_matrix, item_similarity, select, type='item
 print 'User-based CF RMSE: ' + str(utils.rmse(user_prediction, test_data_matrix))
 print 'Item-based CF RMSE: ' + str(utils.rmse(item_prediction, test_data_matrix))
 
+print 'User-based CF RMSE: ' + str(utils.rmse(user_prediction, train_data_matrix))
+print 'Item-based CF RMSE: ' + str(utils.rmse(item_prediction, train_data_matrix))
+
 
 with open('data/' + file_city_name + 'memory_based_cf_user' + '_all_predictions.np', 'w') as file:
 	np.save(file, user_prediction)
